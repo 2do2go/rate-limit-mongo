@@ -11,5 +11,13 @@
     "mongodb": "2.2.36",
     "twostep": "0.4.2",
     "underscore": "^1.9.1"
+  },
+  "devDependencies": {
+    "expect.js": "0.3.1",
+    "jshint": "2.4.4",
+    "mocha": "3.5.0"
+  },
+  "scripts": {
+    "lint": "jshint ./"
   }
 }
