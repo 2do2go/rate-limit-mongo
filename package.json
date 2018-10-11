@@ -2,8 +2,14 @@
   "name": "rate-limit-mongo",
   "description": "Provides a Mongo store for the express-rate-limit  middleware.",
   "license": "MIT",
+  "main": "lib/mongo-store.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:2do2go/rate-limit-mongo.git"
+  },
+  "dependencies": {
+    "mongodb": "2.2.36",
+    "twostep": "0.4.2",
+    "underscore": "^1.9.1"
   }
 }
