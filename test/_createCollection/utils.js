@@ -28,9 +28,9 @@ exports.getMocks = function(testData) {
 
 	var mongoClientConnectResult;
 	if (testData.mongoClientVersion === '2.x.x') {
-		 mongoClientConnectResult = {
+		mongoClientConnectResult = {
 			collection: dbCollectionMock
-		 };
+		};
 	} else {
 		mongoClientConnectResult = {
 			db: clientDbMock
