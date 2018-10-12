@@ -7,7 +7,8 @@ var testUtils = require('./utils');
 
 var MongoStore = rewire('../../lib/mongoStore');
 
-var describeTitle = 'MongoStore.prototype.incr with resetExpireDateOnChange';
+var describeTitle = 'MongoStore.prototype.decrement ' +
+	'with resetExpireDateOnChange';
 describe(describeTitle, function() {
 	var testData = testUtils.getTestData();
 	testData.mongoStoreContext.resetExpireDateOnChange = true;
@@ -22,26 +23,19 @@ describe(describeTitle, function() {
 		);
 	});
 
-	it('should return counter and expirationDate', function(done) {
-		MongoStore.prototype.incr.call(
+	it('should be ok', function(done) {
+		MongoStore.prototype.decrement.call(
 			_({}).extend(
 				testData.mongoStoreContext,
 				mocks._dynamic.mongoStoreContext
 			),
-			testData.key,
-			function(err, counter, expirationDate) {
-				revertMocks();
-
-				expect(counter).eql(
-					testData.collection.findOneAndUpdateResult.value.counter
-				);
-				expect(expirationDate).eql(
-					testData.collection.findOneAndUpdateResult.value.expirationDate
-				);
-
-				done();
-			}
+			testData.key
 		);
+
+		setTimeout(function() {
+			revertMocks();
+			done();
+		}, 10);
 	});
 
 	it('_getCollection should be called', function() {
@@ -90,7 +84,7 @@ describe(describeTitle, function() {
 			).eql([
 				{_id: testData.key},
 				{
-					$inc: {counter: 1},
+					$inc: {counter: -1},
 					$set: {
 						expirationDate: testData.DateResult
 					}
