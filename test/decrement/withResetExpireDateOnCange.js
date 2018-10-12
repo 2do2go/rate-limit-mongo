@@ -70,7 +70,7 @@ describe(describeTitle, function() {
 	});
 
 	it(
-		'collection.findOneAndUpdate should be called for incrementing counter',
+		'collection.findOneAndUpdate should be called for decrementing counter',
 		function() {
 			expect(
 				mocks._dynamic.collection.findOneAndUpdate.callCount
@@ -94,6 +94,10 @@ describe(describeTitle, function() {
 					returnOriginal: false
 				}
 			]);
+
+			expect(
+				_(findOneAndUpdateArgs).last()
+			).a('function');
 		}
 	);
 

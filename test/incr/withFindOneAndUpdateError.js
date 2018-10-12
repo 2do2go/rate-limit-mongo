@@ -102,6 +102,10 @@ describe(describeTitle, function() {
 					returnOriginal: false
 				}
 			]);
+
+			expect(
+				_(findOneAndUpdateArgs).last()
+			).a('function');
 		}
 	);
 
