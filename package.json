@@ -7,10 +7,12 @@
     "type": "git",
     "url": "git@github.com:2do2go/rate-limit-mongo.git"
   },
+  "peerDependencies": {
+    "mongodb": "2.x.x || 3.x.x"
+  },
   "dependencies": {
-    "mongodb": "2.2.36",
     "twostep": "0.4.2",
-    "underscore": "^1.9.1"
+    "underscore": "1.9.1"
   },
   "devDependencies": {
     "expect.js": "0.3.1",
