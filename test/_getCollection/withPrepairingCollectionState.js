@@ -30,13 +30,18 @@ describe(describeTitle, function() {
 		);
 	});
 
-	it('should call setImmediate', function() {
-		MongoStore.prototype._getCollection.call(
-			_({}).extend(
-				testData.mongoStoreContext,
-				mocks._dynamic.mongoStoreContext
-			),
-			'callback'
+	it('should be ok', function(done) {
+		Steppy(
+			function() {
+				MongoStore.prototype._getCollection.call(
+					_({}).extend(
+						testData.mongoStoreContext,
+						mocks._dynamic.mongoStoreContext
+					),
+					this.slot()
+				);
+			},
+			done
 		);
 	});
 
@@ -47,6 +52,18 @@ describe(describeTitle, function() {
 
 		expect(setImmediateArgs).length(1);
 		expect(setImmediateArgs[0]).a('function');
+	});
+
+	it('self._getCollection should be called', function() {
+		expect(
+			mocks._dynamic.mongoStoreContext._getCollection.callCount
+		).eql(1);
+
+		var getCollectionArgs = mocks._dynamic.mongoStoreContext
+			._getCollection.args[0];
+
+		expect(getCollectionArgs).length(1);
+		expect(getCollectionArgs[0]).a('function');
 	});
 
 	it('_createCollection should not be called', function() {

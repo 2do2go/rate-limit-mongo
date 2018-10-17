@@ -12,13 +12,14 @@ exports.getMocks = function(testData) {
 	};
 
 	return {
-		setImmediate: sinon.stub().returns(),
+		setImmediate: sinon.stub().callsArgWithAsync(0),
 		_dynamic: {
 			mongoStoreContext: {
 				_createCollection: sinon.stub().callsFake(function(callback){
 					this.collection = collectionMock;
 					callback();
-				})
+				}),
+				_getCollection: sinon.stub().callsArgWithAsync(0)
 			},
 			collection: collectionMock
 		}

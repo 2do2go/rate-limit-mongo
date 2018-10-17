@@ -53,6 +53,12 @@ describe(describeTitle, function() {
 		expect(mocks.setImmediate.callCount).eql(0);
 	});
 
+	it('self._getCollection should not be called', function() {
+		expect(
+			mocks._dynamic.mongoStoreContext._getCollection.callCount
+		).eql(0);
+	});
+
 	it('_createCollection should be called', function() {
 		expect(
 			mocks._dynamic.mongoStoreContext._createCollection.callCount
