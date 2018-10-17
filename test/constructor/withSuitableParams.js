@@ -20,7 +20,7 @@ describe('MongoStore with suitable params', function() {
 			password: 'testPassword'
 		});
 
-		expect(mongoStore.expireTimeMs).eql(6000);
+		expect(mongoStore.expireTimeMs).eql(60000);
 		expect(mongoStore.resetExpireDateOnChange).eql(false);
 		expect(mongoStore.errorHandler).eql(_.noop);
 	});

@@ -50,8 +50,8 @@ describe(describeTitle, function() {
 		);
 	});
 
-	it('setTimeout should not be called', function() {
-		expect(mocks.setTimeout.callCount).eql(0);
+	it('setImmediate should not be called', function() {
+		expect(mocks.setImmediate.callCount).eql(0);
 	});
 
 	it('_createCollection should not be called', function() {

@@ -2,13 +2,17 @@
 
 var sinon = require('sinon');
 
-exports.getMocks = function() {
+exports.getMocks = function(testData) {
+	testData = testData || {};
+
 	var collectionMock = {
-		createIndex: sinon.stub().callsArgWithAsync(2)
+		createIndex: sinon.stub().callsArgWithAsync(
+			2, testData.collectionCreateIndexError
+		)
 	};
 
 	return {
-		setTimeout: sinon.stub().returns(),
+		setImmediate: sinon.stub().returns(),
 		_dynamic: {
 			mongoStoreContext: {
 				_createCollection: sinon.stub().callsFake(function(callback){

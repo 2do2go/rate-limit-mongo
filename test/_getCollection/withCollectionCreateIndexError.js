@@ -9,16 +9,16 @@ var testUtils = require('./utils');
 var MongoStore = rewire('../../lib/mongoStore');
 
 var describeTitle = 'MongoStore.prototype._getCollection ' +
-	'with "notPrepared" collectionState and collection';
+	'with collection.createIndex error';
 describe(describeTitle, function() {
 	var testData = {
 		mongoStoreContext: {
 			_collectionState: 'notPrepared'
-		}
+		},
+		collectionCreateIndexError: new Error('test createIndex error')
 	};
 
-	var mocks = testUtils.getMocks();
-	mocks._dynamic.mongoStoreContext.collection = mocks._dynamic.collection;
+	var mocks = testUtils.getMocks(testData);
 
 	var revertMocks;
 
@@ -28,7 +28,7 @@ describe(describeTitle, function() {
 		);
 	});
 
-	it('should return collection', function(done) {
+	it('should throw error', function(done) {
 		Steppy(
 			function() {
 				MongoStore.prototype._getCollection.call(
@@ -39,31 +39,42 @@ describe(describeTitle, function() {
 					this.slot()
 				);
 			},
-			function(err, collection) {
-				expect(collection).eql(
-					mocks._dynamic.mongoStoreContext.collection
+			function(err) {
+				expect(err).eql(
+					testData.collectionCreateIndexError
 				);
 
-				this.pass(null);
-			},
-			done
+				done();
+			}
 		);
+	});
+
+	it('mongoStore._collectionState should be "notPrepared"', function() {
+		expect(
+			testData.mongoStoreContext._collectionState
+		).eql('notPrepared');
 	});
 
 	it('setImmediate should not be called', function() {
 		expect(mocks.setImmediate.callCount).eql(0);
 	});
 
-	it('_createCollection should not be called', function() {
+	it('_createCollection should be called', function() {
 		expect(
 			mocks._dynamic.mongoStoreContext._createCollection.callCount
-		).eql(0);
+		).eql(1);
+
+		var createCollectionArgs = mocks._dynamic.mongoStoreContext
+			._createCollection.args[0];
+
+		expect(createCollectionArgs).length(1);
+		expect(createCollectionArgs[0]).a('function');
 	});
 
 	it(
 		'collection.createIndex should be called for setting ttl index',
 		function() {
-			var collectionMock = mocks._dynamic.mongoStoreContext.collection;
+			var collectionMock = mocks._dynamic.collection;
 
 			expect(collectionMock.createIndex.callCount).eql(1);
 

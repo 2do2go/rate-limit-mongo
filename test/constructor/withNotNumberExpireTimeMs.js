@@ -12,7 +12,7 @@ describe('MongoStore with not number expireTimeMs', function() {
 			});
 		}).throwException(function(err) {
 			expect(err.message).eql(
-				'expireTimeMs should beset and should be number'
+				'expireTimeMs should be set and should be number'
 			);
 		});
 	});

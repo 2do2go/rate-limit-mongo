@@ -30,7 +30,7 @@ describe(describeTitle, function() {
 		);
 	});
 
-	it('should call setTimeout', function() {
+	it('should call setImmediate', function() {
 		MongoStore.prototype._getCollection.call(
 			_({}).extend(
 				testData.mongoStoreContext,
@@ -40,14 +40,13 @@ describe(describeTitle, function() {
 		);
 	});
 
-	it('setTimeout should be called', function() {
-		expect(mocks.setTimeout.callCount).eql(1);
+	it('setImmediate should be called', function() {
+		expect(mocks.setImmediate.callCount).eql(1);
 
-		var setTimeoutArgs = mocks.setTimeout.args[0];
+		var setImmediateArgs = mocks.setImmediate.args[0];
 
-		expect(setTimeoutArgs).length(2);
-		expect(setTimeoutArgs[0]).a('function');
-		expect(setTimeoutArgs[1]).eql(50);
+		expect(setImmediateArgs).length(1);
+		expect(setImmediateArgs[0]).a('function');
 	});
 
 	it('_createCollection should not be called', function() {
