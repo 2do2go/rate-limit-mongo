@@ -39,7 +39,7 @@ describe(describeTitle, function() {
 			function(err) {
 				expect(err).eql(testData.findOneAndUpdateError);
 
-				done()
+				done();
 			}
 		);
 	});
