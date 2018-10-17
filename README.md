@@ -18,7 +18,7 @@ var RateLimit = require('express-rate-limit');
 var MongoStore = require('rate-limit-mongo');
 
 var limiter = new RateLimit({
-  store: new RedisStore({
+  store: new MongoStore({
     // see Configuration
   }),
   max: 100,
