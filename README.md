@@ -32,7 +32,7 @@ app.use(limiter);
 * **uri**: string -- uri for connecting to mongodb, `mongodb://127.0.0.1:27017/test_db` for example.
 Required if collection hasn't been set.
 
-* * **collectionName**: string -- name of collection for storing records. Defaults to `expressRateRecords`
+* **collectionName**: string -- name of collection for storing records. Defaults to `expressRateRecords`
 
 * **user**: string -- username for authentication in mongodb
 
