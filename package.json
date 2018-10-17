@@ -1,5 +1,6 @@
 {
   "name": "rate-limit-mongo",
+  "version": "0.1.0-alpha.1",
   "description": "Provides a Mongo store for the express-rate-limit  middleware.",
   "license": "MIT",
   "main": "lib/index.js",
