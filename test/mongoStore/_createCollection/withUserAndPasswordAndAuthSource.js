@@ -56,6 +56,7 @@ describe(describeTitle, function() {
 		).eql([
 			testData.mongoStoreContext.dbOptions.uri,
 			{
+				useNewUrlParser: true,
 				authSource: testData.mongoStoreContext.dbOptions.authSource,
 				auth: {
 					user: testData.mongoStoreContext.dbOptions.user,
