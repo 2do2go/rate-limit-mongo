@@ -2,7 +2,7 @@
 
 var expect = require('expect.js');
 var _ = require('underscore');
-var MongoStore = require('../../lib/mongoStore');
+var MongoStore = require('../../../lib/mongoStore');
 
 describe('MongoStore with suitable params', function() {
 

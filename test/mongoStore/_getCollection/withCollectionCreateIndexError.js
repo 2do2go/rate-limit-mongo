@@ -6,18 +6,19 @@ var rewire = require('rewire');
 var _ = require('underscore');
 var testUtils = require('./utils');
 
-var MongoStore = rewire('../../lib/mongoStore');
+var MongoStore = rewire('../../../lib/mongoStore');
 
 var describeTitle = 'MongoStore.prototype._getCollection ' +
-	'with "notPrepared" collectionState and without collection';
+	'with collection.createIndex error';
 describe(describeTitle, function() {
 	var testData = {
 		mongoStoreContext: {
 			_collectionState: 'notPrepared'
-		}
+		},
+		collectionCreateIndexError: new Error('test createIndex error')
 	};
 
-	var mocks = testUtils.getMocks();
+	var mocks = testUtils.getMocks(testData);
 
 	var revertMocks;
 
@@ -27,7 +28,7 @@ describe(describeTitle, function() {
 		);
 	});
 
-	it('should return collection', function(done) {
+	it('should throw error', function(done) {
 		Steppy(
 			function() {
 				MongoStore.prototype._getCollection.call(
@@ -38,15 +39,20 @@ describe(describeTitle, function() {
 					this.slot()
 				);
 			},
-			function(err, collection) {
-				expect(collection).eql(
-					mocks._dynamic.collection
+			function(err) {
+				expect(err).eql(
+					testData.collectionCreateIndexError
 				);
 
-				this.pass(null);
-			},
-			done
+				done();
+			}
 		);
+	});
+
+	it('mongoStore._collectionState should be "notPrepared"', function() {
+		expect(
+			testData.mongoStoreContext._collectionState
+		).eql('notPrepared');
 	});
 
 	it('setImmediate should not be called', function() {

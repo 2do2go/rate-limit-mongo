@@ -1,7 +1,7 @@
 'use strict';
 
 var expect = require('expect.js');
-var MongoStore = require('../../lib/mongoStore');
+var MongoStore = require('../../../lib/mongoStore');
 
 describe('MongoStore without collection and collectionName', function() {
 

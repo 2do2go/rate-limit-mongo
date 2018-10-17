@@ -1,11 +1,12 @@
 'use strict';
 
 var expect = require('expect.js');
+var Steppy = require('twostep').Steppy;
 var rewire = require('rewire');
 var _ = require('underscore');
 var testUtils = require('./utils');
 
-var MongoStore = rewire('../../lib/mongoStore');
+var MongoStore = rewire('../../../lib/mongoStore');
 
 var describeTitle = 'MongoStore.prototype.resetKey ' +
 	'with deleteOne error';
@@ -15,18 +16,24 @@ describe(describeTitle, function() {
 
 	var mocks = testUtils.getMocks(testData);
 
-	it('should be ok', function(done) {
-		MongoStore.prototype.resetKey.call(
-			_({}).extend(
-				testData.mongoStoreContext,
-				mocks._dynamic.mongoStoreContext
-			),
-			testData.key
-		);
+	it('should throw error', function(done) {
+		Steppy(
+			function() {
+				MongoStore.prototype.resetKey.call(
+					_({}).extend(
+						testData.mongoStoreContext,
+						mocks._dynamic.mongoStoreContext
+					),
+					testData.key,
+					this.slot()
+				);
+			},
+			function(err) {
+				expect(err).eql(testData.deleteOneError);
 
-		setTimeout(function() {
-			done();
-		}, 10);
+				done();
+			}
+		);
 	});
 
 	it('_getCollection should be called', function() {

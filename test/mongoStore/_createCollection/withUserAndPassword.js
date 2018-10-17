@@ -6,13 +6,14 @@ var rewire = require('rewire');
 var _ = require('underscore');
 var testUtils = require('./utils');
 
-var MongoStore = rewire('../../lib/mongoStore');
+var MongoStore = rewire('../../../lib/mongoStore');
 
 var describeTitle = 'MongoClient.prototype._createCollection ' +
-	'with MongoClient version 3.x.x';
+	'with user and password';
 describe(describeTitle, function() {
 	var testData = testUtils.getTestData();
-	testData.mongoClientVersion = '3.x.x';
+	testData.mongoStoreContext.dbOptions.user = 'testUser';
+	testData.mongoStoreContext.dbOptions.password = 'testPassword';
 
 	var mocks = testUtils.getMocks(testData);
 
@@ -44,8 +45,8 @@ describe(describeTitle, function() {
 		);
 	});
 
-	it('MongoClient.connect should be called with uri', function() {
-		expect(mocks._dynamic.db.collection.callCount).eql(1);
+	it('MongoClient.connect should be called with uri and auth info', function() {
+		expect(mocks.MongoClient.connect.callCount).eql(1);
 
 		var MongoClientConnectArgs = mocks.MongoClient.connect.args[0];
 
@@ -53,20 +54,18 @@ describe(describeTitle, function() {
 			_(MongoClientConnectArgs).initial()
 		).eql([
 			testData.mongoStoreContext.dbOptions.uri,
-			{}
+			{
+				authSource: 'testDbName',
+				auth: {
+					user: testData.mongoStoreContext.dbOptions.user,
+					password: testData.mongoStoreContext.dbOptions.password
+				}
+			}
 		]);
 
 		expect(
 			_(MongoClientConnectArgs).last()
 		).a('function');
-	});
-
-	it('client.db should be called', function() {
-		expect(mocks._dynamic.client.db.callCount).eql(1);
-
-		var clientDbArgs = mocks._dynamic.client.db.args[0];
-
-		expect(clientDbArgs).eql([]);
 	});
 
 	it('db.collection should be called with collection name', function() {

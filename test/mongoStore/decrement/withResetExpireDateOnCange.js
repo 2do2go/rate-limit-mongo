@@ -1,17 +1,18 @@
 'use strict';
 
 var expect = require('expect.js');
+var Steppy = require('twostep').Steppy;
 var rewire = require('rewire');
 var _ = require('underscore');
 var testUtils = require('./utils');
 
-var MongoStore = rewire('../../lib/mongoStore');
+var MongoStore = rewire('../../../lib/mongoStore');
 
 var describeTitle = 'MongoStore.prototype.decrement ' +
-	'without resetExpireDateOnChange';
+	'with resetExpireDateOnChange';
 describe(describeTitle, function() {
 	var testData = testUtils.getTestData();
-	testData.mongoStoreContext.resetExpireDateOnChange = false;
+	testData.mongoStoreContext.resetExpireDateOnChange = true;
 
 	var mocks = testUtils.getMocks(testData);
 
@@ -24,18 +25,19 @@ describe(describeTitle, function() {
 	});
 
 	it('should be ok', function(done) {
-		MongoStore.prototype.decrement.call(
-			_({}).extend(
-				testData.mongoStoreContext,
-				mocks._dynamic.mongoStoreContext
-			),
-			testData.key
+		Steppy(
+			function() {
+				MongoStore.prototype.decrement.call(
+					_({}).extend(
+						testData.mongoStoreContext,
+						mocks._dynamic.mongoStoreContext
+					),
+					testData.key,
+					this.slot()
+				);
+			},
+			done
 		);
-
-		setTimeout(function() {
-			revertMocks();
-			done();
-		}, 10);
 	});
 
 	it('_getCollection should be called', function() {
@@ -85,7 +87,7 @@ describe(describeTitle, function() {
 				{_id: testData.key},
 				{
 					$inc: {counter: -1},
-					$setOnInsert: {
+					$set: {
 						expirationDate: testData.DateResult
 					}
 				},

@@ -6,14 +6,15 @@ var rewire = require('rewire');
 var _ = require('underscore');
 var testUtils = require('./utils');
 
-var MongoStore = rewire('../../lib/mongoStore');
+var MongoStore = rewire('../../../lib/mongoStore');
 
 var describeTitle = 'MongoClient.prototype._createCollection ' +
-	'with user and password';
+	'with user and password and authSource';
 describe(describeTitle, function() {
 	var testData = testUtils.getTestData();
 	testData.mongoStoreContext.dbOptions.user = 'testUser';
 	testData.mongoStoreContext.dbOptions.password = 'testPassword';
+	testData.mongoStoreContext.dbOptions.authSource = 'testAuthSource';
 
 	var mocks = testUtils.getMocks(testData);
 
@@ -55,7 +56,7 @@ describe(describeTitle, function() {
 		).eql([
 			testData.mongoStoreContext.dbOptions.uri,
 			{
-				authSource: 'testDbName',
+				authSource: testData.mongoStoreContext.dbOptions.authSource,
 				auth: {
 					user: testData.mongoStoreContext.dbOptions.user,
 					password: testData.mongoStoreContext.dbOptions.password

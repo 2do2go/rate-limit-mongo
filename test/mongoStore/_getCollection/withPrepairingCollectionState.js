@@ -6,15 +6,17 @@ var rewire = require('rewire');
 var _ = require('underscore');
 var testUtils = require('./utils');
 
-var MongoStore = rewire('../../lib/mongoStore');
+var MongoStore = rewire('../../../lib/mongoStore');
 
 var describeTitle = 'MongoStore.prototype._getCollection ' +
-	'with "prepared" collectionState';
+	'with "prepairing" collectionState';
 describe(describeTitle, function() {
 	var testData = {
 		mongoStoreContext: {
-			_collectionState: 'prepared',
-			collection: 'testCollection'
+			_collectionState: 'prepairing',
+			options: {
+				collection: 'testCollection'
+			}
 		}
 	};
 
@@ -28,7 +30,7 @@ describe(describeTitle, function() {
 		);
 	});
 
-	it('should return collection', function(done) {
+	it('should be ok', function(done) {
 		Steppy(
 			function() {
 				MongoStore.prototype._getCollection.call(
@@ -39,25 +41,29 @@ describe(describeTitle, function() {
 					this.slot()
 				);
 			},
-			function(err, collection) {
-				expect(collection).eql(
-					testData.mongoStoreContext.collection
-				);
-
-				this.pass(null);
-			},
 			done
 		);
 	});
 
-	it('setImmediate should not be called', function() {
-		expect(mocks.setImmediate.callCount).eql(0);
+	it('setImmediate should be called', function() {
+		expect(mocks.setImmediate.callCount).eql(1);
+
+		var setImmediateArgs = mocks.setImmediate.args[0];
+
+		expect(setImmediateArgs).length(1);
+		expect(setImmediateArgs[0]).a('function');
 	});
 
-	it('self._getCollection should not be called', function() {
+	it('self._getCollection should be called', function() {
 		expect(
 			mocks._dynamic.mongoStoreContext._getCollection.callCount
-		).eql(0);
+		).eql(1);
+
+		var getCollectionArgs = mocks._dynamic.mongoStoreContext
+			._getCollection.args[0];
+
+		expect(getCollectionArgs).length(1);
+		expect(getCollectionArgs[0]).a('function');
 	});
 
 	it('_createCollection should not be called', function() {

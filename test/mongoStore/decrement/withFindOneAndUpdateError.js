@@ -1,11 +1,12 @@
 'use strict';
 
 var expect = require('expect.js');
+var Steppy = require('twostep').Steppy;
 var rewire = require('rewire');
 var _ = require('underscore');
 var testUtils = require('./utils');
 
-var MongoStore = rewire('../../lib/mongoStore');
+var MongoStore = rewire('../../../lib/mongoStore');
 
 var describeTitle = 'MongoStore.prototype.decrement ' +
 	'with findOneAndUpdate error';
@@ -23,19 +24,24 @@ describe(describeTitle, function() {
 		);
 	});
 
-	it('should be ok', function(done) {
-		MongoStore.prototype.decrement.call(
-			_({}).extend(
-				testData.mongoStoreContext,
-				mocks._dynamic.mongoStoreContext
-			),
-			testData.key
-		);
+	it('should throw error in callback', function(done) {
+		Steppy(
+			function() {
+				MongoStore.prototype.decrement.call(
+					_({}).extend(
+						testData.mongoStoreContext,
+						mocks._dynamic.mongoStoreContext
+					),
+					testData.key,
+					this.slot()
+				);
+			},
+			function(err) {
+				expect(err).eql(testData.findOneAndUpdateError);
 
-		setTimeout(function() {
-			revertMocks();
-			done();
-		}, 10);
+				done()
+			}
+		);
 	});
 
 	it('_getCollection should be called', function() {

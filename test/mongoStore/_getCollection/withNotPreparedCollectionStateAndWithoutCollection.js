@@ -6,10 +6,10 @@ var rewire = require('rewire');
 var _ = require('underscore');
 var testUtils = require('./utils');
 
-var MongoStore = rewire('../../lib/mongoStore');
+var MongoStore = rewire('../../../lib/mongoStore');
 
 var describeTitle = 'MongoStore.prototype._getCollection ' +
-	'with "notPrepared" collectionState and collection';
+	'with "notPrepared" collectionState and without collection';
 describe(describeTitle, function() {
 	var testData = {
 		mongoStoreContext: {
@@ -18,7 +18,6 @@ describe(describeTitle, function() {
 	};
 
 	var mocks = testUtils.getMocks();
-	mocks._dynamic.mongoStoreContext.collection = mocks._dynamic.collection;
 
 	var revertMocks;
 
@@ -41,7 +40,7 @@ describe(describeTitle, function() {
 			},
 			function(err, collection) {
 				expect(collection).eql(
-					mocks._dynamic.mongoStoreContext.collection
+					mocks._dynamic.collection
 				);
 
 				this.pass(null);
@@ -60,16 +59,22 @@ describe(describeTitle, function() {
 		).eql(0);
 	});
 
-	it('_createCollection should not be called', function() {
+	it('_createCollection should be called', function() {
 		expect(
 			mocks._dynamic.mongoStoreContext._createCollection.callCount
-		).eql(0);
+		).eql(1);
+
+		var createCollectionArgs = mocks._dynamic.mongoStoreContext
+			._createCollection.args[0];
+
+		expect(createCollectionArgs).length(1);
+		expect(createCollectionArgs[0]).a('function');
 	});
 
 	it(
 		'collection.createIndex should be called for setting ttl index',
 		function() {
-			var collectionMock = mocks._dynamic.mongoStoreContext.collection;
+			var collectionMock = mocks._dynamic.collection;
 
 			expect(collectionMock.createIndex.callCount).eql(1);
 
