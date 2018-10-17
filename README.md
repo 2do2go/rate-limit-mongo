@@ -1,7 +1,6 @@
 # Rate Limit Mongo
 
 Mongo client for the [express-rate-limit](https://github.com/nfriedly/express-rate-limit) middleware.
-It supports mongodb drivers of versions 2.x.x and 3.x.x
 
 [![Npm version](https://img.shields.io/npm/v/rate-limit-mongo.svg)](https://www.npmjs.org/package/rate-limit-mongo)
 [![Build Status](https://travis-ci.org/2do2go/rate-limit-mongo.svg?branch=master)](https://travis-ci.org/2do2go/rate-limit-mongo)
