@@ -44,7 +44,7 @@ describe(describeTitle, function() {
 		);
 	});
 
-	it('MongoClient.connect should be called with uri', function() {
+	it('MongoClient.connect should be called with uri and options', function() {
 		expect(mocks._dynamic.db.collection.callCount).eql(1);
 
 		var MongoClientConnectArgs = mocks.MongoClient.connect.args[0];
@@ -53,7 +53,7 @@ describe(describeTitle, function() {
 			_(MongoClientConnectArgs).initial()
 		).eql([
 			testData.mongoStoreContext.dbOptions.uri,
-			{}
+			{useNewUrlParser: true}
 		]);
 
 		expect(

@@ -45,7 +45,7 @@ describe(describeTitle, function() {
 		);
 	});
 
-	it('MongoClient.connect should be called with uri and auth info', function() {
+	it('MongoClient.connect should be called with uri and options', function() {
 		expect(mocks.MongoClient.connect.callCount).eql(1);
 
 		var MongoClientConnectArgs = mocks.MongoClient.connect.args[0];
@@ -55,6 +55,7 @@ describe(describeTitle, function() {
 		).eql([
 			testData.mongoStoreContext.dbOptions.uri,
 			{
+				useNewUrlParser: true,
 				authSource: 'testDbName',
 				auth: {
 					user: testData.mongoStoreContext.dbOptions.user,
