@@ -7,7 +7,7 @@ exports.getTestData = function() {
 	return {
 		key: 'testKey',
 		DateResult: {
-			a: _.random(1, 10)
+			someKey: _.random(1, 10)
 		},
 		Date: {
 			nowResult: _.random(1, 10)
