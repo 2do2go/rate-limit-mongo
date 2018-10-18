@@ -1,13 +1,30 @@
 {
   "name": "rate-limit-mongo",
-  "version": "1.0.1",
   "description": "Provides a Mongo store for the express-rate-limit  middleware.",
+  "version": "1.0.1",
+  "author": "2do2go team <dev.2do2go@gmail.com>",
   "license": "MIT",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:2do2go/rate-limit-mongo.git"
   },
+  "keywords": [
+    "express-rate-limit",
+    "express",
+    "rate",
+    "limit",
+    "ratelimit",
+    "rate-limit",
+    "security",
+    "brute",
+    "force",
+    "bruteforce",
+    "brute-force",
+    "attack",
+    "mongo",
+    "mongodb"
+  ],
   "dependencies": {
     "twostep": "0.4.2",
     "underscore": "1.9.1",
