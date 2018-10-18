@@ -56,6 +56,7 @@ describe(describeTitle, function() {
 		).eql([
 			testData.mongoStoreContext.dbOptions.uri,
 			{
+				useNewUrlParser: true,
 				authSource: testData.mongoStoreContext.dbOptions.authSource,
 				auth: {
 					user: testData.mongoStoreContext.dbOptions.user,
@@ -67,6 +68,14 @@ describe(describeTitle, function() {
 		expect(
 			_(MongoClientConnectArgs).last()
 		).a('function');
+	});
+
+	it('client.db should be called', function() {
+		expect(mocks._dynamic.client.db.callCount).eql(1);
+
+		var clientDbArgs = mocks._dynamic.client.db.args[0];
+
+		expect(clientDbArgs).eql([]);
 	});
 
 	it('db.collection should be called with collection name', function() {
