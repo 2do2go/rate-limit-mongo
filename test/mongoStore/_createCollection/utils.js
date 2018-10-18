@@ -12,8 +12,7 @@ exports.getTestData = function() {
 		},
 		db: {
 			collectionResult: 'testCollection'
-		},
-		mongoClientVersion: '2.x.x'
+		}
 	};
 };
 
@@ -26,16 +25,9 @@ exports.getMocks = function(testData) {
 		collection: dbCollectionMock
 	});
 
-	var mongoClientConnectResult;
-	if (testData.mongoClientVersion === '2.x.x') {
-		mongoClientConnectResult = {
-			collection: dbCollectionMock
-		};
-	} else {
-		mongoClientConnectResult = {
-			db: clientDbMock
-		};
-	}
+	var mongoClientConnectResult = {
+		db: clientDbMock
+	};
 
 	return {
 		MongoClient: {

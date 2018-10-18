@@ -70,6 +70,14 @@ describe(describeTitle, function() {
 		).a('function');
 	});
 
+	it('client.db should be called', function() {
+		expect(mocks._dynamic.client.db.callCount).eql(1);
+
+		var clientDbArgs = mocks._dynamic.client.db.args[0];
+
+		expect(clientDbArgs).eql([]);
+	});
+
 	it('db.collection should be called with collection name', function() {
 		expect(mocks._dynamic.db.collection.callCount).eql(1);
 

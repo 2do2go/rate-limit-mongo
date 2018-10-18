@@ -9,10 +9,9 @@ var testUtils = require('./utils');
 var MongoStore = rewire('../../../lib/mongoStore');
 
 var describeTitle = 'MongoClient.prototype._createCollection ' +
-	'with MongoClient version 3.x.x';
+	'with suitable params';
 describe(describeTitle, function() {
 	var testData = testUtils.getTestData();
-	testData.mongoClientVersion = '3.x.x';
 
 	var mocks = testUtils.getMocks(testData);
 
