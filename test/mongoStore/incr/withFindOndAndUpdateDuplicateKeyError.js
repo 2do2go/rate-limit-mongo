@@ -1,16 +1,19 @@
 'use strict';
 
 var expect = require('expect.js');
+var Steppy = require('twostep').Steppy;
 var rewire = require('rewire');
 var _ = require('underscore');
 var testUtils = require('./utils');
 
 var MongoStore = rewire('../../../lib/mongoStore');
 
-var describeTitle = 'MongoStore.prototype.incr with resetExpireDateOnChange';
+var describeTitle = 'MongoStore.prototype.incr with ' +
+	'findOneAndUpdate duplicate key error';
 describe(describeTitle, function() {
 	var testData = testUtils.getTestData();
-	testData.mongoStoreContext.resetExpireDateOnChange = true;
+	testData.findOneAndUpdateError = new Error();
+	testData.findOneAndUpdateError.code = 11000;
 
 	var mocks = testUtils.getMocks(testData);
 
@@ -22,25 +25,19 @@ describe(describeTitle, function() {
 		);
 	});
 
-	it('should return counter and expirationDate', function(done) {
-		MongoStore.prototype.incr.call(
-			_({}).extend(
-				testData.mongoStoreContext,
-				mocks._dynamic.mongoStoreContext
-			),
-			testData.key,
-			function(err, counter, expirationDate) {
-				revertMocks();
-
-				expect(counter).eql(
-					testData.collection.findOneAndUpdateResult.value.counter
+	it('should be ok', function(done) {
+		Steppy(
+			function() {
+				MongoStore.prototype.incr.call(
+					_({}).extend(
+						testData.mongoStoreContext,
+						mocks._dynamic.mongoStoreContext
+					),
+					testData.key,
+					this.slot()
 				);
-				expect(expirationDate).eql(
-					testData.collection.findOneAndUpdateResult.value.expirationDate
-				);
-
-				done();
-			}
+			},
+			done
 		);
 	});
 
@@ -91,7 +88,7 @@ describe(describeTitle, function() {
 				{_id: testData.key},
 				{
 					$inc: {counter: 1},
-					$set: {
+					$setOnInsert: {
 						expirationDate: testData.DateResult
 					}
 				},
@@ -107,10 +104,20 @@ describe(describeTitle, function() {
 		}
 	);
 
-	it('self.incr should not be called', function() {
+	it('self.incr should be called', function() {
+		expect(mocks._dynamic.mongoStoreContext.incr.callCount).eql(1);
+
+		var incrArgs = mocks._dynamic.mongoStoreContext.incr.args[0];
+
 		expect(
-			mocks._dynamic.mongoStoreContext.incr.callCount
-		).eql(0);
+			_(incrArgs).initial()
+		).eql([
+			testData.key
+		]);
+
+		expect(
+			_(incrArgs).last()
+		).a('function');
 	});
 
 	it('errorHandler should not be called', function() {

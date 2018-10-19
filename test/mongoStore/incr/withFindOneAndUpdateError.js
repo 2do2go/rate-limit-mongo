@@ -109,6 +109,12 @@ describe(describeTitle, function() {
 		}
 	);
 
+	it('self.incr should not be called', function() {
+		expect(
+			mocks._dynamic.mongoStoreContext.incr.callCount
+		).eql(0);
+	});
+
 	it('errorHandler should be called with error', function() {
 		expect(
 			mocks._dynamic.mongoStoreContext.errorHandler.callCount
