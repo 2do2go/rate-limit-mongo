@@ -48,7 +48,8 @@ exports.getMocks = function(testData) {
 				_getCollection: sinon.stub().callsArgWithAsync(
 					0, null, collectionMock
 				),
-				errorHandler: sinon.stub().returns()
+				errorHandler: sinon.stub().returns(),
+				incr: sinon.stub().callsArgWithAsync(1)
 			},
 			collection: collectionMock
 		}
