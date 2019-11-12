@@ -52,7 +52,10 @@ describe(describeTitle, function() {
 			_(MongoClientConnectArgs).initial()
 		).eql([
 			testData.mongoStoreContext.dbOptions.uri,
-			{useNewUrlParser: true}
+			{
+				useNewUrlParser: true,
+				useUnifiedTopology: true
+			}
 		]);
 
 		expect(
