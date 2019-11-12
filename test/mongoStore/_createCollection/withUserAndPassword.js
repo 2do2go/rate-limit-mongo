@@ -56,6 +56,7 @@ describe(describeTitle, function() {
 			testData.mongoStoreContext.dbOptions.uri,
 			{
 				useNewUrlParser: true,
+				useUnifiedTopology: true,
 				authSource: 'testDbName',
 				auth: {
 					user: testData.mongoStoreContext.dbOptions.user,
