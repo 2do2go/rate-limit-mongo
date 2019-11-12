@@ -28,7 +28,7 @@
   "dependencies": {
     "twostep": "0.4.2",
     "underscore": "1.9.1",
-    "mongodb": "3.x.x"
+    "mongodb": ">= 3.3.4 < 4.0.0"
   },
   "devDependencies": {
     "expect.js": "0.3.1",
