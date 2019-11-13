@@ -35,7 +35,7 @@
     "jshint": "2.10.3",
     "mocha": "5.2.0",
     "rewire": "4.0.1",
-    "sinon": "^7.5.0"
+    "sinon": "7.5.0"
   },
   "scripts": {
     "lint": "jshint ./",
