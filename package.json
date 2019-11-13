@@ -32,10 +32,10 @@
   },
   "devDependencies": {
     "expect.js": "0.3.1",
-    "jshint": "2.4.4",
-    "mocha": "3.5.0",
-    "rewire": "4.0.0",
-    "sinon": "4.4.2"
+    "jshint": "2.10.3",
+    "mocha": "5.2.0",
+    "rewire": "4.0.1",
+    "sinon": "7.5.0"
   },
   "scripts": {
     "lint": "jshint ./",
