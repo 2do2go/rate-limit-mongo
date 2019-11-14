@@ -1,9 +1,10 @@
 # Rate Limit Mongo
 
-Mongo client for the [express-rate-limit](https://github.com/nfriedly/express-rate-limit) middleware.
+MongoDB store for the [express-rate-limit](https://github.com/nfriedly/express-rate-limit) middleware.
 
 [![Npm version](https://img.shields.io/npm/v/rate-limit-mongo.svg)](https://www.npmjs.org/package/rate-limit-mongo)
 [![Build Status](https://travis-ci.org/2do2go/rate-limit-mongo.svg?branch=master)](https://travis-ci.org/2do2go/rate-limit-mongo)
+
 
 ## Install
 
@@ -28,6 +29,7 @@ var limiter = new RateLimit({
 //  apply to all requests
 app.use(limiter);
 ```
+
 
 ## Configuration
 
