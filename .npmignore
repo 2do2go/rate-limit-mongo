@@ -1,6 +1,8 @@
+test/
+.nyc_output/
+coverage/
 .npmignore
 .travis.yml
-test
 .jshintrc
 .jshintignore
 .npmrc

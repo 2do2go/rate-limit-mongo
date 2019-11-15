@@ -34,11 +34,14 @@
     "expect.js": "0.3.1",
     "jshint": "2.10.3",
     "mocha": "5.2.0",
+    "nyc": "14.1.1",
     "rewire": "4.0.1",
     "sinon": "7.5.0"
   },
   "scripts": {
     "lint": "jshint ./",
-    "test": "mocha --reporter spec --bail --timeout 10000 --recursive"
+    "test": "mocha --reporter spec --bail --timeout 10000 --recursive",
+    "makeCodeCoverageDetailReport": "nyc --all --exclude migrations --exclude coverage --exclude test --reporter html npm test -- --reporter dot && echo \"*** Code coverage report done, checkout ./coverage dir\"",
+    "makeCodeCoverageSummaryReport": "nyc --all --exclude migrations --exclude coverage --exclude test --reporter text-summary npm test -- --reporter dot"
   }
 }
