@@ -42,7 +42,7 @@
   "scripts": {
     "lint": "jshint ./",
     "test": "mocha --reporter spec --bail --timeout 10000 --recursive",
-    "makeCodeCoverageDetailReport": "nyc --all --exclude migrations --exclude coverage --exclude test --reporter html npm test -- --reporter dot && echo \"*** Code coverage report done, checkout ./coverage dir\"",
+    "makeCodeCoverageDetailReport": "nyc --all --exclude migrations --exclude coverage --exclude test --reporter lcov --reporter html  npm test -- --reporter dot && echo \"*** Code coverage report done, checkout ./coverage dir\"",
     "makeCodeCoverageSummaryReport": "nyc --all --exclude migrations --exclude coverage --exclude test --reporter text-summary npm test -- --reporter dot"
   }
 }
