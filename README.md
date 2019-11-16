@@ -68,5 +68,6 @@ In addition following methods provided:
 * `getClient(callback)` - if `collection` was not passed to the constructor then
 that method will pass (as second argument) initiated instace of
 [MongoClient](http://mongodb.github.io/node-mongodb-native/3.3/api/MongoClient.html)
-to the `callback`, otherwise null will be passed. Thus this method provides
-control over connection iniated by the library to the end user.
+to the `callback`, otherwise `null` will be passed. Thus this method provides
+control over connection iniated by the library to the end user. This method
+is promisified (when `util.promisify` is provided (node.js >= 8)).
