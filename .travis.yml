@@ -15,8 +15,7 @@ script:
   - npm run test
 
   - >
-    nodeVersionMajor=`node -e "node -p "process.versions.node.split('.')[0]"`;
-
+    nodeVersionMajor=`node -p "process.versions.node.split('.')[0]"`;
     if [ $nodeVersionMajor -eq 14 ]; then
       npm run makeCodeCoverageSummaryReport;
       npm run makeCodeCoverageDetailReport;
