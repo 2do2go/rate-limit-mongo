@@ -13,7 +13,8 @@ var describeTitle = 'MongoStore.prototype._getCollection ' +
 describe(describeTitle, function() {
 	var testData = {
 		mongoStoreContext: {
-			_collectionState: 'notPrepared'
+			_collectionState: 'notPrepared',
+			createTtlIndex: true
 		}
 	};
 
