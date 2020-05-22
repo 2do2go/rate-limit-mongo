@@ -60,7 +60,8 @@ during incr, decrement or resetKey methods. Defaults to `_.noop`.
 * **createTtlIndex**: boolean -- defines whether create ttl index (
 on `expirationDate` field with `expireAfterSeconds: 0`) on collection
 or not. Could be useful in situations when you don't want to create index
-from the app e.g. due to restricted db permissions (see #15 for details).
+from the app e.g. due to restricted db permissions (see
+[#15](https://github.com/2do2go/rate-limit-mongo/issues/15) for details).
 Defaults to `true`.
 
 
