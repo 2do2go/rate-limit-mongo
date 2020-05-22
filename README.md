@@ -55,7 +55,13 @@ Defaults to `60 * 1000`. Note that current implementation uses on mongodb ttl in
 Defaults to `false`.
 
 * **errorHandler**: function -- function that will be called if error happened
-during incr, decrement or resetKey methods. Defaults to `_.noop`
+during incr, decrement or resetKey methods. Defaults to `_.noop`.
+
+* **createTtlIndex**: boolean -- defines whether create ttl index (
+on `expirationDate` field with `expireAfterSeconds: 0`) on collection
+or not. Could be useful in situations when you don't want to create index
+from the app e.g. due to restricted db permissions (see #15 for details).
+Defaults to `true`.
 
 
 ## Methods
