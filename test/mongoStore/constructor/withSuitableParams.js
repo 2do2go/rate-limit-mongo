@@ -23,5 +23,6 @@ describe('MongoStore with suitable params', function() {
 		expect(mongoStore.expireTimeMs).eql(60000);
 		expect(mongoStore.resetExpireDateOnChange).eql(false);
 		expect(mongoStore.errorHandler).eql(_.noop);
+		expect(mongoStore.createTtlIndex).equal(true);
 	});
 });
