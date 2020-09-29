@@ -8,7 +8,8 @@ exports.getTestData = function() {
 			dbOptions: {
 				uri: 'testUri/testDbName',
 				collectionName: 'testCollectionName'
-			}
+			},
+			connectionOptions: {}
 		},
 		db: {
 			collectionResult: 'testCollection'
