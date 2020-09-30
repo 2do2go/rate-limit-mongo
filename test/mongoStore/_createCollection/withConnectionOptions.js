@@ -15,8 +15,11 @@ describe(describeTitle, function() {
 	testData.mongoStoreContext.dbOptions.user = 'testUser';
 	testData.mongoStoreContext.dbOptions.password = 'testPassword';
 	testData.mongoStoreContext.dbOptions.authSource = 'testAuthSource';
-	testData.mongoStoreContext.connectionOptions.ssl = true;
-	testData.mongoStoreContext.connectionOptions.sslCA = Buffer.alloc(5);
+	testData.mongoStoreContext.connectionOptions = {
+		useUnifiedTopology: false,
+		ssl: true,
+		sslCA: Buffer.alloc(5)
+	};
 
 	var mocks = testUtils.getMocks(testData);
 
@@ -59,7 +62,7 @@ describe(describeTitle, function() {
 			testData.mongoStoreContext.dbOptions.uri,
 			{
 				useNewUrlParser: true,
-				useUnifiedTopology: true,
+				useUnifiedTopology: false,
 				authSource: testData.mongoStoreContext.dbOptions.authSource,
 				auth: {
 					user: testData.mongoStoreContext.dbOptions.user,
