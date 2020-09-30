@@ -27,7 +27,7 @@
   ],
   "dependencies": {
     "twostep": "0.4.2",
-    "underscore": "^1.11.0",
+    "underscore": "1.11.0",
     "mongodb": ">= 3.3.4 < 4.0.0"
   },
   "devDependencies": {
