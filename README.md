@@ -22,15 +22,17 @@ var MongoStore = require('rate-limit-mongo');
 
 var limiter = new RateLimit({
   store: new MongoStore({
-    uri: "mongodb://127.0.0.1:27017/test_db",
-    user: "mongouser",
-    password: "mongopassword",
-    expireTimeMs: 15 * 60 * 1000, // should match windowMs
-    errorHandler: console.error.bind(null, "rate-limit-mongo"), 
+    uri: 'mongodb://127.0.0.1:27017/test_db',
+    user: 'mongouser',
+    password: 'mongopassword',
+    // should match windowMs
+    expireTimeMs: 15 * 60 * 1000,
+    errorHandler: console.error.bind(null, 'rate-limit-mongo')
     // see Configuration section for more options and details
   }),
   max: 100,
-  windowMs: 15 * 60 * 1000 // should match expireTimeMs
+  // should match expireTimeMs
+  windowMs: 15 * 60 * 1000
 });
 
 //  apply to all requests
