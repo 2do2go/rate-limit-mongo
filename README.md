@@ -22,10 +22,15 @@ var MongoStore = require('rate-limit-mongo');
 
 var limiter = new RateLimit({
   store: new MongoStore({
-    // see Configuration
+    uri: "mongodb://127.0.0.1:27017/test_db",
+    user: "mongouser",
+    password: "mongopassword",
+    expireTimeMs: 15 * 60 * 1000, // should match windowMs
+    errorHandler: console.error.bind(null, "rate-limit-mongo"), 
+    // see Configuration section for more options and details
   }),
   max: 100,
-  windowMs: 15 * 60 * 1000
+  windowMs: 15 * 60 * 1000 // should match expireTimeMs
 });
 
 //  apply to all requests
@@ -52,6 +57,8 @@ Required if collection hasn't been set.
 
 * **expireTimeMs**: integer -- time period, in milliseconds, after which record will be reset (deleted).
 Defaults to `60 * 1000`. Notice that current implementation uses on mongodb ttl indexes - background task that removes expired documents runs every 60 seconds. As a result, documents may remain in a collection during the period between the expiration of the document and the running of the background task. See [mongodb ttl indexes doc](https://docs.mongodb.com/v3.6/core/index-ttl/#timing-of-the-delete-operation) for more information.
+
+Note: unless express-tate-limit's headers are disabled, `windowMs` on express-tate-limit's options should be set to the same value as `expireTimeMs` on rate-limit-mongo's options in order for the `Retry-After` header to be correct.
 
 * **resetExpireDateOnChange**: boolean -- indicates whether expireDate should be reset when changed or not.
 Defaults to `false`.
