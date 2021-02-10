@@ -38,7 +38,7 @@ declare module 'rate-limit-mongo' {
          * This method is promisified (when `util.promisify` is presented (node.js >= 8)).
          * @param callback 
          */
-        getClient(callback: (client: MongoClient | null) => any): void;
+        getClient(callback: (collection: null, client: MongoClient | null) => any): void;
 
     }
 
