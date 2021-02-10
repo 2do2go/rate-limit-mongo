@@ -5,6 +5,7 @@
   "author": "2do2go team <dev.2do2go@gmail.com>",
   "license": "MIT",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com:2do2go/rate-limit-mongo.git"
