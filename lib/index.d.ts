@@ -29,6 +29,11 @@ declare module 'rate-limit-mongo' {
          * @param key The key to reset.
          */
         resetKey(key: string): void;
+        
+        /**
+         * Resets every value
+         */
+        resetAll(): void;
 
         /**
          * if `collection` was not passed to the constructor then that method will pass (as second argument) initiated instance of
