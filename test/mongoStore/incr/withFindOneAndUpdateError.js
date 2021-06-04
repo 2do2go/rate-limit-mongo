@@ -99,7 +99,7 @@ describe(describeTitle, function() {
 				},
 				{
 					upsert: true,
-					returnOriginal: false
+					returnDocument: 'after'
 				}
 			]);
 
