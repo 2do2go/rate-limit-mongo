@@ -2,7 +2,7 @@ test/
 .nyc_output/
 coverage/
 .npmignore
-.travis.yml
+.github/
 .jshintrc
 .jshintignore
 .npmrc
