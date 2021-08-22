@@ -3,7 +3,7 @@
 MongoDB store for the [express-rate-limit](https://github.com/nfriedly/express-rate-limit) middleware.
 
 [![Npm version](https://img.shields.io/npm/v/rate-limit-mongo.svg)](https://www.npmjs.org/package/rate-limit-mongo)
-[![Build Status](https://travis-ci.org/2do2go/rate-limit-mongo.svg?branch=master)](https://travis-ci.org/2do2go/rate-limit-mongo)
+[![Build Status](https://github.com/2do2go/rate-limit-mongo/actions/workflows/nodejs-main.yml/badge.svg?branch=master)](https://github.com/2do2go/rate-limit-mongo/actions/workflows/nodejs-main.yml?query=branch%3Amaster)
 [![Coverage Status](https://coveralls.io/repos/github/2do2go/rate-limit-mongo/badge.svg?branch=master)](https://coveralls.io/github/2do2go/rate-limit-mongo?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/npm/rate-limit-mongo/badge.svg)](https://snyk.io/test/npm/rate-limit-mongo)
 
