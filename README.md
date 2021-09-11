@@ -60,7 +60,7 @@ Required if collection hasn't been set.
 * **expireTimeMs**: integer -- time period, in milliseconds, after which record will be reset (deleted).
 Defaults to `60 * 1000`. Notice that current implementation uses on mongodb ttl indexes - background task that removes expired documents runs every 60 seconds. As a result, documents may remain in a collection during the period between the expiration of the document and the running of the background task. See [mongodb ttl indexes doc](https://docs.mongodb.com/v3.6/core/index-ttl/#timing-of-the-delete-operation) for more information.
 
-Note: unless express-tate-limit's headers are disabled, `windowMs` on express-tate-limit's options should be set to the same value as `expireTimeMs` on rate-limit-mongo's options in order for the `Retry-After` header to be correct.
+Note: unless express-rate-limit's headers are disabled, `windowMs` on express-rate-limit's options should be set to the same value as `expireTimeMs` on rate-limit-mongo's options in order for the `Retry-After` header to be correct.
 
 * **resetExpireDateOnChange**: boolean -- indicates whether expireDate should be reset when changed or not.
 Defaults to `false`.
@@ -84,7 +84,7 @@ required by [express-rate-limit](https://github.com/nfriedly/express-rate-limit)
 In addition following methods provided:
 
 * `getClient(callback)` - if `collection` was not passed to the constructor then
-that method will pass (as second argument) initiated instace of
+that method will pass (as second argument) initiated instance of
 [MongoClient](http://mongodb.github.io/node-mongodb-native/3.3/api/MongoClient.html)
 to the `callback`, otherwise `null` will be passed. Thus this method provides
 control over connection initiated by the library to the end user. This method
