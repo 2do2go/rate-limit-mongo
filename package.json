@@ -1,7 +1,7 @@
 {
   "name": "rate-limit-mongo",
   "description": "Provides a Mongo store for the express-rate-limit  middleware.",
-  "version": "2.3.2",
+  "version": "2.4.0",
   "author": "2do2go team <dev.2do2go@gmail.com>",
   "license": "MIT",
   "main": "lib/index.js",
